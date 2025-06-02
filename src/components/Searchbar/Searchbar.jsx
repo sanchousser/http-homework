@@ -5,16 +5,16 @@ import css from './Searchbar.module.css'
 class Searchbar extends Component {
 
     state = {
-        query: '',
+        value: '',
     }
 
     handleFormSubmit = (e) => {
         e.preventDefault();
-        this.props.onSubmit(this.state.query);
+        this.props.onSubmit(this.state.value);
     }
 
     handleInputChange = (e) => {
-        this.setState({ query: e.currentTarget.value })
+        this.setState({ value: e.target.value })
     }
 
 
