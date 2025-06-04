@@ -1,5 +1,8 @@
-function Modal () {
-    // return (  );
+function Modal() {
+    
+
+    // return ()
+    
 }
 
-export default Modal ;
+export default Modal;

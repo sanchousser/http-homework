@@ -5,6 +5,8 @@ import fetchImages from "services/getPixabayContent"
 
 import { toast } from 'react-toastify';
 import Button from "components/Button/Button";
+import ModalWindow from "components/Modal/Modal";
+
 
 export class ImageGallery extends Component {
 
@@ -15,6 +17,7 @@ export class ImageGallery extends Component {
         totalPages: 1,
         error: null,
         showModal: false,
+        selectedImage: null,
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -43,12 +46,19 @@ export class ImageGallery extends Component {
         this.setState(prevState => ({ page: prevState.page + 1 }))
     }
 
+    toggleModal = (image) => {
+        this.setState(prevState => ({showModal: !prevState.showModal, selectedImage: image}))
+    }
+
+
+
     render() {
         return (<><ul className={css.gallery}>{
-            this.state.images.map(image => (<ImageGalleryItem key={image.id} url={image.webformatURL}
+            this.state.images.map(image => (<ImageGalleryItem onClick={() => this.toggleModal(image.webformatURL)} key={image.id} url={image.webformatURL}
                 alt={image.tags} />))
         }</ul>
             {this.state.page !== this.state.totalPages && <Button onLoadMoreBtnClick={this.onLoadMoreBtnClick} />}
+        <ModalWindow />
         </>)
     }
 }
