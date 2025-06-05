@@ -5,7 +5,7 @@ import fetchImages from "services/getPixabayContent"
 
 import { toast } from 'react-toastify';
 import Button from "components/Button/Button";
-import ModalWindow from "components/Modal/Modal";
+import Modal from "components/Modal/Modal";
 
 
 export class ImageGallery extends Component {
@@ -17,7 +17,7 @@ export class ImageGallery extends Component {
         totalPages: 1,
         error: null,
         showModal: false,
-        selectedImage: null,
+        selectedImage: '',
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -28,8 +28,8 @@ export class ImageGallery extends Component {
                         images: [...prevState.images, ...images.hits],
                         totalPages: Math.ceil(images.hits / 12)
                     }))
-                    if(prevProps.searchQuery !== this.props.searchQuery) {
-                        this.setState({images: [...images.hits]})
+                    if (prevProps.searchQuery !== this.props.searchQuery) {
+                        this.setState({ images: [...images.hits] })
                     }
                     if (!images.hits.length) {
                         this.setState({ images: [] })
@@ -47,18 +47,20 @@ export class ImageGallery extends Component {
     }
 
     toggleModal = (image) => {
-        this.setState(prevState => ({showModal: !prevState.showModal, selectedImage: image}))
+        this.setState(prevState => ({ showModal: !prevState.showModal, selectedImage: image }))
     }
 
 
 
     render() {
         return (<><ul className={css.gallery}>{
-            this.state.images.map(image => (<ImageGalleryItem onClick={() => this.toggleModal(image.webformatURL)} key={image.id} url={image.webformatURL}
-                alt={image.tags} />))
+            this.state.images.map(({largeImageURL, id, webformatURL, tags}) => (<ImageGalleryItem onClickModal={() => this.toggleModal(largeImageURL)} key={id} url={webformatURL}
+                alt={tags} />))
         }</ul>
             {this.state.page !== this.state.totalPages && <Button onLoadMoreBtnClick={this.onLoadMoreBtnClick} />}
-        <ModalWindow />
+            {this.state.showModal && (<Modal onClose={this.toggleModal}>
+                <img src={this.state.selectedImage} />
+            </Modal>)}
         </>)
     }
 }

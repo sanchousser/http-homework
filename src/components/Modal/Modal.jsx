@@ -1,8 +1,10 @@
-function Modal() {
-    
+function Modal({children}) {
 
-    // return ()
-    
+
+    <div class="modal-dialog modal-fullscreen-sm-down">
+        {children}
+    </div>
+
 }
 
 export default Modal;

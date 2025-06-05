@@ -1,10 +1,13 @@
 import css from './ImageGalleryItem.module.css'
 
 
-function ImageGalleryItem({ url, alt }) {
+function ImageGalleryItem({ url, alt, onClickModal }) {
+
+
+    
     return (
         <li className={css.gallery__item}>
-            <img className={css.gallery__img} src={url} alt={alt} />
+            <img onClick={onClickModal} className={css.gallery__img} src={url} alt={alt} />
         </li>
     );
     ;
