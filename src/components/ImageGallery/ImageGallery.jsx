@@ -8,6 +8,7 @@ import Button from "components/Button/Button";
 import Modal from "components/Modal/Modal";
 
 
+
 export class ImageGallery extends Component {
 
     state = {

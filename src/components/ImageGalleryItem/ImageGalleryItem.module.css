@@ -1,4 +1,10 @@
 .gallery__img {
     width: 325px;
     height: auto;
+    cursor: pointer;
+}
+
+.gallery__img:hover {
+    transform: scale(1.01);
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1);
 }
