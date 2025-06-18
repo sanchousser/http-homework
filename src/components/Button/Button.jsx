@@ -1,6 +1,6 @@
 import { Component } from "react"
 
-class Button extends Component {
+const Button = (onLoadMoreBtnClick) => {
 
     // handleBtnClick = (e) => {
     //     e.preventDefault()
@@ -8,18 +8,16 @@ class Button extends Component {
     // }
 
 
-    render() {
-        return (<button type="button"
-            style={{
-                display: 'block',
-                margin: '40px auto 0',
-                padding: '10px 20px',
-            }}
-            onClick={this.props.onLoadMoreBtnClick}
-        >
-            Load more
-        </button>)
-    }
+    return (<button type="button"
+        style={{
+            display: 'block',
+            margin: '40px auto 0',
+            padding: '10px 20px',
+        }}
+        onClick={onLoadMoreBtnClick}
+    >
+        Load more
+    </button>)
 }
 
 export default Button;

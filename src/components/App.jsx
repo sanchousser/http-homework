@@ -1,31 +1,29 @@
-import { Component } from "react";
+import { useState } from "react";
 import Searchbar from "./Searchbar/Searchbar";
 import { ImageGallery } from "./ImageGallery/ImageGallery";
 import Loader from "./Loader/Loader";
 import Button from "./Button/Button";
 
-export class App extends Component {
+export const App = () => {
 
-  state = {
-    searchQuery: '',
+
+  const [searchQuery, setSearchQuery] = useState('')
+
+
+  const handleSearchSubmit = (searchQuery) => {
+    // this.setState({ searchQuery })
+    setSearchQuery(searchQuery)
   }
 
 
-  handleSearchSubmit = (searchQuery) => {
-    this.setState({searchQuery})
-  }
 
 
-
-
-  render() {
-    return (
-      <div>
-        <Searchbar onSubmit={this.handleSearchSubmit} />
-        <ImageGallery searchQuery={this.state.searchQuery}/>
-        {/* {this.state.isLoading === false ? <ImageGallery pictures={this.state.hits}/> : <Loader />}
+  return (
+    <div>
+      <Searchbar onSubmit={handleSearchSubmit} />
+      <ImageGallery searchQuery={searchQuery} />
+      {/* {this.state.isLoading === false ? <ImageGallery pictures={this.state.hits}/> : <Loader />}
         {this.state.hits.length > 0 && <Button onLoadMoreBtnClick={this.handleLoadMoreBtnClick} />} */}
-      </div>
-    );
-  }
+    </div>
+  );
 };

@@ -1,48 +1,49 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import css from './Searchbar.module.css'
 import { toast } from 'react-toastify';
 
 
-class Searchbar extends Component {
+const Searchbar = ({onSubmit}) => {
 
-    state = {
-        value: '',
-    }
+    // state = {
+    //     value: '',
+    // }
 
-    handleFormSubmit = (e) => {
+    const [value, setValue] = useState('')
+
+    const handleFormSubmit = (e) => {
         e.preventDefault();
-        if(this.state.value.trim() === '') {
+        if (value.trim() === '') {
             toast.error('Enter something for search')
             return;
         }
-        this.props.onSubmit(this.state.value);
+        onSubmit(value);
     }
 
-    handleInputChange = (e) => {
-        this.setState({ value: e.target.value })
+    const handleInputChange = (e) => {
+        // this.setState({ value: e.target.value })
+        setValue(e.target.value)
     }
 
 
-    render() {
-        return (
-            <header className={css.searchbar}>
-                <form onSubmit={this.handleFormSubmit} className={css.form}>
-                    <button type="submit" className={css.button}>
-                        <span className={css.button__label}>Search</span>
-                    </button>
+    return (
+        <header className={css.searchbar}>
+            <form onSubmit={handleFormSubmit} className={css.form}>
+                <button type="submit" className={css.button}>
+                    <span className={css.button__label}>Search</span>
+                </button>
 
-                    <input
-                        onChange={this.handleInputChange}
-                        className={css.input}
-                        type="text"
-                        autoComplete="off"
-                        autoFocus
-                        placeholder="Search images and photos"
-                    />
-                </form>
-            </header>
-        );
-    }
+                <input
+                    onChange={handleInputChange}
+                    className={css.input}
+                    type="text"
+                    autoComplete="off"
+                    autoFocus
+                    placeholder="Search images and photos"
+                />
+            </form>
+        </header>
+    );
 }
 
 export default Searchbar;
