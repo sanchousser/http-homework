@@ -5,18 +5,15 @@ import ImageGalleryItem from "components/ImageGalleryItem/ImageGalleryItem";
 import Button from "components/Button/Button";
 import Modal from "components/Modal/Modal";
 import fetchImages from "services/getPixabayContent";
+import Loader from "components/Loader/Loader";
 
 import css from './ImageGallery.module.css';
 
-function usePrevious(value) {
-    const ref = useRef();
-    useEffect(() => {
-        ref.current = value;
-    }, [value]);
-    return ref.current;
-}
+
 
 export const ImageGallery = ({ searchQuery }) => {
+
+
     const [isLoading, setIsLoading] = useState(false);
     const [page, setPage] = useState(1);
     const [images, setImages] = useState([]);
@@ -25,8 +22,20 @@ export const ImageGallery = ({ searchQuery }) => {
     const [showModal, setShowModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState('');
 
+
+
+    function usePrevious(value) {
+        const ref = useRef();
+        useEffect(() => {
+            ref.current = value;
+        }, [value]);
+        return ref.current;
+    }
+
     const prevSearchQuery = usePrevious(searchQuery);
     const prevPage = usePrevious(page);
+
+
 
     useEffect(() => {
         if (!searchQuery) return;
@@ -49,7 +58,7 @@ export const ImageGallery = ({ searchQuery }) => {
 
                     setTotalPages(Math.ceil(data.totalHits / 12));
                 })
-                .catch(err => setError(err))
+                .catch(error => setError(error))
                 .finally(() => setIsLoading(false));
         }
     }, [searchQuery, page]);
@@ -69,6 +78,8 @@ export const ImageGallery = ({ searchQuery }) => {
 
     return (
         <>
+            {isLoading && <Loader />}
+
             <ul className={css.gallery}>
                 {images.map(({ id, webformatURL, largeImageURL, tags }) => (
                     <ImageGalleryItem
