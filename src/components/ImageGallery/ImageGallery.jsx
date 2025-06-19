@@ -18,7 +18,7 @@ export const ImageGallery = ({ searchQuery }) => {
     const [page, setPage] = useState(1);
     const [images, setImages] = useState([]);
     const [totalPages, setTotalPages] = useState(1);
-    // const [error, setError] = useState(null);
+    const [error, setError] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState('');
 
@@ -41,24 +41,26 @@ export const ImageGallery = ({ searchQuery }) => {
         if (!searchQuery) return;
 
         if (prevSearchQuery !== searchQuery || prevPage !== page) {
+            setError(false)
             setIsLoading(true);
             fetchImages(searchQuery, page)
                 .then(data => {
                     if (!data.hits.length) {
                         setImages([]);
-                        toast.error(`Sorry, ${searchQuery} not found`);
+                        setError(true)
+
                         return;
                     }
 
                     if (prevSearchQuery !== searchQuery) {
-                        setImages(data.hits); // Новый поиск — сбрасываем
+                        setImages(data.hits);
                     } else {
-                        setImages(prev => [...prev, ...data.hits]); // Пагинация
+                        setImages(prev => [...prev, ...data.hits]);
                     }
 
                     setTotalPages(Math.ceil(data.totalHits / 12));
                 })
-                // .catch(error => setError(error))
+                .catch(error => setError(error))
                 .finally(() => setIsLoading(false));
         }
     }, [searchQuery, page, prevSearchQuery, prevPage]);
@@ -79,6 +81,7 @@ export const ImageGallery = ({ searchQuery }) => {
     return (
         <>
             {isLoading && <Loader />}
+            {error && <h2>Oops, an error occured <br /> {searchQuery} did not found</h2>}
 
             <ul className={css.gallery}>
                 {images.map(({ id, webformatURL, largeImageURL, tags }) => (
