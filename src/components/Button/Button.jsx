@@ -1,6 +1,6 @@
 
 
-const Button = (onLoadMoreBtnClick) => {
+const Button = ({onLoadMoreBtnClick}) => {
 
     // handleBtnClick = (e) => {
     //     e.preventDefault()

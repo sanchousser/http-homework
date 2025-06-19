@@ -10,7 +10,6 @@ function ImageGalleryItem({ url, alt, onClickModal }) {
             <img onClick={onClickModal} className={css.gallery__img} src={url} alt={alt} />
         </li>
     );
-    ;
 }
 
 export default ImageGalleryItem;
