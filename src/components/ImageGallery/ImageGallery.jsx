@@ -18,7 +18,7 @@ export const ImageGallery = ({ searchQuery }) => {
     const [page, setPage] = useState(1);
     const [images, setImages] = useState([]);
     const [totalPages, setTotalPages] = useState(1);
-    const [error, setError] = useState(null);
+    // const [error, setError] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState('');
 
@@ -58,7 +58,7 @@ export const ImageGallery = ({ searchQuery }) => {
 
                     setTotalPages(Math.ceil(data.totalHits / 12));
                 })
-                .catch(error => setError(error))
+                // .catch(error => setError(error))
                 .finally(() => setIsLoading(false));
         }
     }, [searchQuery, page, prevSearchQuery, prevPage]);
