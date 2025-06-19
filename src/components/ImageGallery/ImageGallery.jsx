@@ -61,7 +61,7 @@ export const ImageGallery = ({ searchQuery }) => {
                 .catch(error => setError(error))
                 .finally(() => setIsLoading(false));
         }
-    }, [searchQuery, page]);
+    }, [searchQuery, page, prevSearchQuery, prevPage]);
 
     const onLoadMoreBtnClick = () => {
         setPage(prev => prev + 1);
