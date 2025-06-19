@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import { toast } from 'react-toastify';
 
 import ImageGalleryItem from "components/ImageGalleryItem/ImageGalleryItem";
 import Button from "components/Button/Button";
@@ -48,6 +47,7 @@ export const ImageGallery = ({ searchQuery }) => {
                     if (!data.hits.length) {
                         setImages([]);
                         setError(true)
+                        
 
                         return;
                     }
